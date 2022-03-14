@@ -1,5 +1,5 @@
 import React from "react"
-import {Modal} from "bootstrap";
+import {Modal} from "bootstrap"
 import axios from "axios"
 
 
@@ -10,17 +10,32 @@ class User extends React.Component {
             users: [
                 {
                     id_user: '1',
-                    nama: 'My Self',
-                    username: 'MyMe',
-                    role: 'admin',
-                    password: 'MyMe123',
+                    nama: 'bababs',
+                    alamat: 'hohohoho',
+                    jenis_kelamin: 'Male',
+                    telepon: '082264134484',
+                },
+                {
+                    id_user: '2',
+                    nama: 'rammwmdmwi',
+                    alamat: 'Malang',
+                    jenis_kelamin: 'Male',
+                    telepon: '089138277732',
+                },
+                {
+                    id_user: '3',
+                    nama: 'Genta Badawdawdahatara',
+                    alamat: 'Tulungagung',
+                    jenis_kelamin: 'Male',
+                    telepon: '087321387621',
                 },
             ],
-            id_user: '1',
-            nama: 'My Self',
-            username: 'MyMe',
-            role: 'admin',
-            password: 'MyMe123',
+            id_user: "",
+            nama: "",
+            alamat: "",
+            telepon: "",
+            jenis_kelamin: "",
+            action: "",
         }
     }
 
@@ -31,150 +46,165 @@ class User extends React.Component {
 
         //empty modal input
         this.setState({
-            id_user: Math.random(1, 1000),
+            id: Math.random(1, 1000),
             nama: "",
-            username: "",
-            role: "Member",
-            password: "",
+            alamat: "",
+            telepon: "",
+            jenis_kelamin: "pria",
+            action: "tambah",
         })
     }
+    simpanData(event) {
+        event.preventDefault();
+        // preventDefault -> mencegah aksi default dari form submit
 
-    editData(id_user) {
-        this.modalUser = new Modal(document.getElementById("modal-user"))
-        this.modalUser.show()
-        
-        // find index from member's data  based on their ids in member's array
-        let index = this.state.users.findIndex(user => user.id_user === id_user)
+        // cek aksi tambah atau ubah
+        if (this.state.action === "tambah") {
+            let endpoint = "http://localhost:8000/api/users"
+            // menampung data isian dalam user
+            let data = {
+                id_user: this.state.id_user,
+                nama: this.state.nama,
+                alamat: this.state.alamat,
+                jenis_kelamin: this.state.jenis_kelamin,
+                telepon: this.state.telepon
+            }
+
+            axios.post(endpoint, data)
+            .then(response => {
+                window.alert(response.data.message)
+                this.getData()
+            })
+            .catch(error => console.log(error))
+
+            // menghilangkan modal
+            this.modalUser.hide()
+        } else if (this.state.action === "ubah") {
+            let endpoint = "http://localhost:8000/api/users/" + this.state.id_user
+
+            let data = {
+                id_user: this.state.id_user,
+                nama: this.state.nama,
+                alamat: this.state.alamat,
+                jenis_kelamin: this.state.jenis_kelamin,
+                telepon: this.state.telepon
+            }
+
+            axios.put(endpoint, data)
+            .then(response => {
+                window.alert(response.data.message)
+                this.getData()
+            })
+            .catch(error => console.log(error))
+
+            this.modalUser.hide()
+        }
+    }
+
+    ubahData(id_user){
+        this.modalUser = new Modal(document.getElementById("modal-users"))
+        this.modalUser.show() // menampilkan modal
+
+        // mencari index posisi dari data member yang akan diubah
+        let index = this.state.users.findIndex(
+            user => user.id_user === id_user
+        )
 
         this.setState({
             id_user: this.state.users[index].id_user,
             nama: this.state.users[index].nama,
-            username: this.state.users[index].username,
-            role: this.state.users[index].role,
-            password: this.state.users[index].password,
-            action: "edit",
+            alamat: this.state.users[index].alamat,
+            jenis_kelamin: this.state.users[index].jenis_kelamin,
+            telepon: this.state.users[index].telepon,
+            action: "ubah",
         })
+
     }
 
-    storeData(event) {
-        event.preventDefault()
-        //mencegah berjalannya aksi default dari form submit
+    hapusData(id_user) {
+        if (window.confirm("Are You Sure?")) {
 
-        //menghilangkan modal
-        this.modalUser.hide()
+            let endpoint = "http://localhost:8000/api/users/" + id_user 
 
-        //cek aksi tambah atau ubah
-        if (this.state.action === "create") {
-            let endpoint = "http://localhost:8000/users"
-            let data = {
-                id_user: this.state.id_user,
-                nama: this.state.nama,
-                username : this.state.username,
-                role: this.state.role,
-                password: this.state.password
-            }
+            axios.delete(endpoint)
+            .then(response => {
+                window.alert(response.data.message)
+                this.getData()
+            })
+            .catch(error => console.log(error))
+            // mencari posisi index dari data yang akan dihapus
+            // let temp = this.state.users
+            // let index = temp.findIndex(user => user.id_user === id_user)
 
-            //let temp = this.state.members
-            //temp.push(newMember)
+            // menghapus data pada array
+            // temp.splice(index,1)
 
-            //this.setState({members: temp})
-            axios.post(endpoint, data)
-                .then(response => {
-                    window.alert(response.data.message)
-                    this.getData()
-                })
-                .catch(error => console.log(error))
+            // this.setState({users: temp})
         }
-        else if (this.state.action === "edit"){
-            this.modalUser.hide()
-            let endpoint = "http://localhost:8000/users/" +
-                this.state.id_user
+    }
 
-                let data = {
-                    id_user: this.state.id_member,
-                    nama: this.state.nama,
-                    username: this.state.username,
-                    role: this.state.role,
-                    password: this.state.password
-                }
-    
-                axios.put(endpoint, data)
-                .then(response => {
-                    window.alert(response.data.message)
-                    this.getData()
-                })
-                .catch(error => console.log(error))
-    
-                this.modalUser.hide()
-            }
-            this.getdata()
-        }
-    deleteData(id_user){
-        if (window.confirm("Are you sure to delete this data?")){}
-        let endpoint = "http://localhost:8000/users/" + id_user
-        axios.delete(endpoint)
+    getData() {
+        let endpoint = "http://localhost:8000/api/users"
+        axios.get(endpoint)
         .then(response => {
-            window.alert(response.data.message)
-            this.getData()
+            this.setState({users: response.data})
         })
         .catch(error => console.log(error))
     }
-    getdata(){
-        let endpoint = "http://localhost:8000/users"
-        axios.get(endpoint)
-            .then(response =>{
-                this.setState({users: response.data})
-            })
-            .catch(error => console.log(error))
-    }
-    componentDidMount(){
-        //fungsi ini dijalankan setelah fungsi render berjalan
-        this.getdata()
+
+    componentDidMount() {
+        // fungsi ini dijalankan setelah fungsi render
+        // berjalan
+        this.getData()
     }
     render() {
         return (
             <div className="card">
-                <div className="card-header bg-primary">
+                <div className="card-header bg-dark">
                     <h4 className="text-white">List Daftar User</h4>
                 </div>
                 <div className="card-body">
                     <ul className="list-group">
-                        {this.state.users.map(user => (
-                            <li className="list-group-item">
-                                <div className="row">
-                                    <div className="col-lg-2">
-                                        <small className="text-info">Nama</small>
-                                        <br />
-                                        {user.nama}
+                            {this.state.users.map(user => (
+                                <li className="list-group-item">
+                                    <div className="row">
+                                        <div className="col-lg-3">
+                                            <small className="text-info">Nama</small> <br />
+                                            <h5>{user.nama}</h5>
+                                        </div>
+                                        <div className="col-lg-1">
+                                            <small className="text-info">Gender <br /></small>
+                                            <h5>{user.jenis_kelamin}</h5>
+                                        </div>
+                                        <div className="col-lg-2">
+                                            <small className="text-info">Telepon <br /></small>
+                                            <h5>{user.telepon}</h5>
+                                        </div>
+                                        <div className="col-lg-4">
+                                            <small className="text-info">Alamat <br /></small>
+                                            <h5>{user.alamat}</h5>
+                                        </div>
+                                        <div className="col-lg-2">
+                                            <small className="text-info">Action <br /></small>
+                                            <button className="btn btn-outline-success btn-sm mx-1" 
+                                            onClick={() => this.ubahData(user.id_user)}>
+                                                Edit
+                                            </button>
+
+                                            <button className="btn btn-outline-danger btn-sm"
+                                            onClick={() => this.hapusData(user.id_user)}>
+                                                Hapus
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="col-lg-2">
-                                        <small className="text-info">Username</small>
-                                        <br />
-                                        {user.username}
-                                    </div>
-                                    <div className="col-lg-3">
-                                        <small className="text-info">Role</small>
-                                        <br />
-                                        {user.role}
-                                    </div>
-                                    <div className="col-lg-3">
-                                        <button type="button" className="btn btn-warning me-2" onClick={() => this.editData(user.id_user)}>Ubah</button>
-                                        <button type="button" className="btn btn-danger" onClick={() => this.deleteData(user.id_user)}>Hapus</button>
-                                    </div>
-                                    <div className="col-lg-12">
-                                        <small className="text-info">Password</small>
-                                        <br />
-                                        {user.password}
-                                    </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                                </li>
+                            ))}
+                        </ul>
                     <button type="button" className="btn btn-success mt-3" onClick={() => this.createData()}>
                         Tambah User
                     </button>
                 </div>
-                {/* Create Member Modal */}
+                {/* Create User Modal */}
                 <div className="modal" id="modal-user">
                     <div className="modal-dialog modal-md">
                         <div className="modal-content">
@@ -184,24 +214,23 @@ class User extends React.Component {
                                 </h4>
                             </div>
                             <div className="modal-body">
-                                <form onSubmit={ev => this.storeData(ev)}>
+                                <form onSubmit={ev => this.simpanData(ev)}>
                                     Nama
                                     <input type="text" className="form-control mb-2" value={this.state.nama} onChange={ev => this.setState({ nama: ev.target.value })} required />
 
-                                    Username
-                                    <input type="text" className="form-control mb-2" value={this.state.username} onChange={ev => this.setState({ username: ev.target.value })} required />
+                                    Alamat
+                                    <input type="text" className="form-control mb-2" value={this.state.alamat} onChange={ev => this.setState({ alamat: ev.target.value })} required />
 
-                                    Role
-                                    <select className="form-control mb-2" value={this.state.role} onChange={ev => this.setState({ role: ev.target.value })}>
-                                        <option value="admin">Admin</option>
-                                        <option value="member">Member</option>
+                                    Telepon
+                                    <input type="text" className="form-control mb-2" value={this.state.telepon} onChange={ev => this.setState({ telepon: ev.target.value })} required />
+
+                                    Jenis Kelamin
+                                    <select className="form-control mb-2" value={this.state.jenis_kelamin} onChange={ev => this.setState({ jenis_kelamin: ev.target.value })}>
+                                        <option value="Pria">Pria</option>
+                                        <option value="Wanita">Wanita</option>
                                     </select>
-                                    
-                                    Password
-                                    <input type="text" className="form-control mb-2" value={this.state.password} onChange={ev => this.setState({ password: ev.target.value })} required />
 
-
-                                    <button className="btn btn-success btn-sm" type="submit" >Simpan</button>
+                                    <button className="btn btn-success btn-sm" type="submit">Simpan</button>
                                 </form>
                             </div>
                         </div>

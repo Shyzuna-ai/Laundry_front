@@ -26,6 +26,7 @@ class Login extends React.Component{
                 localStorage.setItem("token", result.data.token)
                 localStorage.setItem("user", JSON.stringify(result.data.user))
                 window.alert("Successfuly Logged In")
+                window.location.href = "/member"
             }
             else {
                 window.alert("Username Or Password Incorrect")
