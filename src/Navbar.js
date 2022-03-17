@@ -1,5 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  MDBNavbar,
+  MDBContainer,
+  MDBIcon,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBDropdown,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem,
+  MDBDropdownLink
+} from 'mdb-react-ui-kit';
 
 function Logout() {
     localStorage.removeItem("user")
@@ -7,13 +22,15 @@ function Logout() {
 }
 
 export default function Navbar(props) {
+  
   return (
+    
     <div>
       
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a href="#" className="navbar-brand text-danger">
-            Toshi's
+          <a href="#" className="navbar-brand text-info">
+            Rycle's
           </a>
 
           {/* button toogler */}

@@ -217,8 +217,11 @@ class Users extends React.Component{
                                     <input type="password" className="form-control mb-2" value={this.state.password}
                                     onChange={(ev) => this.setState({password: ev.target.value})}></input>
                                     role
-                                    <input type="text" className="form-control mb-2"value={this.state.role}
-                                    onChange={(ev) => this.setState({role: ev.target.value})}></input>
+                                    <select type="text" className="form-control mb-2"value={this.state.role}
+                                    onChange={(ev) => this.setState({role: ev.target.value})}>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Kasir">Kasir</option>
+                                    </select>
                                     <button className="btn btn-success" type="submit">
                                         Simpan
                                     </button>

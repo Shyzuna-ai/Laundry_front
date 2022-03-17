@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
 import {  authorization} from "../config";
+import'../Bg.css';
 
 class Member extends React.Component {
   constructor() {
@@ -197,12 +198,13 @@ class Member extends React.Component {
       )
     }
   }
+  
   render() {
     return (
-      <div className="container">
+      <div className="">
         <div className="card">
-          <div className="card-header bg-success">
-            <h3 className="text-white">List Member Laundry</h3>
+          <div className="card-header bg-dark">
+            <h3 className="text-info">List Member Laundry</h3>
           </div>
           <div className="card-body">
             <ul className="list-group">
@@ -253,8 +255,8 @@ class Member extends React.Component {
         <div className="modal" id="modal_member">
           <div className="modal-dialog modal-md">
             <div className="modal-content">
-              <div className="modal-header bg-success">
-                <h4 className="text-white">Form data member</h4>
+              <div className="modal-header bg-dark">
+                <h4 className="text-info">Form data member</h4>
               </div>
               <div className="modal-body">
                 <form onSubmit={(ev) => this.simpanData(ev)}>

@@ -1,6 +1,7 @@
-import React from "react";
 import axios from "axios";
+import React from "react";
 import '../login.css';
+import IMAGE from'../carrot.jpeg';
 
 class Login extends React.Component{
     constructor(){
@@ -40,8 +41,8 @@ class Login extends React.Component{
         return (
             <div className="container">
                 <div className="body d-md-flex align-items-center justify-content-between">
-                <div class="box-1 mt-md-0 mt-5"><img src="https://images.pexels.com/photos/2033997/pexels-photo-2033997.jpeg" class="" alt=""></img></div>
-                <div class=" box-2 d-flex flex-column h-100">
+                <div className="box-1 mt-md-0 mt-5"><img src={IMAGE} className="" alt=""></img></div>
+                <div className=" box-2 d-flex flex-column h-100">
                     <div className="mt-5">
                         <p className="mb-3 h-1">Login Account</p>
                         <div className="card-body">

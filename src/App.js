@@ -9,17 +9,18 @@ import Login from "./pages/Login";
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Navbar from "./Navbar";
 import Dashboard from "./pages/Dashboard";
+import Footer from "./footer";
 
 export default function App(){
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navbar><Dashboard/></Navbar>}/>
-        <Route path="/transaksi" element={<Navbar><Transaksi/></Navbar>}/>
-        <Route path="/member" element={<Navbar><Member/></Navbar>}/>
-        <Route path="/paket" element={<Navbar><Paket/></Navbar>}/>
-        <Route path="/users" element={<Navbar><Users/></Navbar>}/>
-        <Route path="/form-transaksi" element={<Navbar><FormTransaksi/></Navbar>}/>
+        <Route path="/" element={<Navbar><Dashboard/><Footer/></Navbar>}/>
+        <Route path="/transaksi" element={<Navbar><Transaksi/><Footer/></Navbar>}/>
+        <Route path="/member" element={<Navbar><Member/><Footer/></Navbar>}/>
+        <Route path="/paket" element={<Navbar><Paket/><Footer/></Navbar>}/>
+        <Route path="/users" element={<Navbar><Users/><Footer/></Navbar>}/>
+        <Route path="/form-transaksi" element={<Navbar><FormTransaksi/><Footer/></Navbar>}/>
         <Route path="/login" element={<Login/>}/>
       </Routes>
     </BrowserRouter>

@@ -8,7 +8,7 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import Transaksi from "./pages/Transaksi";
 import FormTransaksi from "./pages/FormTransaksi";
 import Login from "./pages/Login";
-
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
