@@ -40,6 +40,7 @@ class Users extends React.Component{
             username:"",
             password:"",
             role:"",
+            fillpassword: true,
         })
     }
     simpanData(event){
@@ -82,8 +83,10 @@ class Users extends React.Component{
                 id_user: this.state.id_user,
                 nama: this.state.nama,
                 username: this.state.username,
-                password: this.state.password,
                 role: this.state.role
+            }
+            if (this.state.fillpassword === true){
+                data.password = this.state.password
             }
             axios.put(endpoint,data,authorization)
             .then((response) => {
@@ -106,8 +109,9 @@ class Users extends React.Component{
             id_user: id_user,
             nama: this.state.userss[index].nama,
             username: this.state.userss[index].username,
-            password: this.state.userss[index].password,
-            role: this.state.userss[index].role
+            password: "",
+            role: this.state.userss[index].role,
+            fillpassword: false,
         })
     }
     hapusData(id_user){
@@ -152,6 +156,28 @@ class Users extends React.Component{
         })
         }
     }
+
+    showpassword(){
+        if(this.state.fillpassword === true){
+            return(
+                <div>
+                    password
+                    <input type="password" className="form-control mb-2"
+                    required 
+                    value ={this.state.password}
+                    onChange={ev => this.setState({password:ev.target.value})}>
+                        </input>
+                </div>
+            )
+        }   else{
+            return(
+                <button className="mb-1 btn btn-success"
+                onClick={() => this.setState({fillpassword: true})} >
+                    change password</button>
+            )
+        }
+    }
+
     render(){
         return(
             <div className="container">
@@ -210,18 +236,20 @@ class Users extends React.Component{
                                     Nama
                                     <input type="text" className="form-control mb-2" value={this.state.nama}
                                     onChange={(ev) => this.setState({nama: ev.target.value})}></input>
-                                    username
+                                    Username
                                     <input type="text" className="form-control mb-2" value={this.state.username}
                                     onChange={(ev) => this.setState({username: ev.target.value})}></input>
-                                    password
-                                    <input type="password" className="form-control mb-2" value={this.state.password}
-                                    onChange={(ev) => this.setState({password: ev.target.value})}></input>
-                                    role
+                                    {this.showpassword()}
+                                    <div></div>
+                                    Role
                                     <select type="text" className="form-control mb-2"value={this.state.role}
                                     onChange={(ev) => this.setState({role: ev.target.value})}>
                                         <option value="Admin">Admin</option>
                                         <option value="Kasir">Kasir</option>
                                     </select>
+                                    
+                                    
+
                                     <button className="btn btn-success" type="submit">
                                         Simpan
                                     </button>

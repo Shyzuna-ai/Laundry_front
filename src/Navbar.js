@@ -1,20 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  MDBNavbar,
-  MDBContainer,
-  MDBIcon,
-  MDBNavbarNav,
-  MDBNavbarItem,
-  MDBNavbarLink,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBDropdown,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBDropdownItem,
-  MDBDropdownLink
-} from 'mdb-react-ui-kit';
+
 
 function Logout() {
     localStorage.removeItem("user")

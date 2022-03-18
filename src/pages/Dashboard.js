@@ -95,7 +95,7 @@ export default class Dashboard extends React.Component{
                     <div>
                         <p></p>
                     </div>
-                    <div className="col-lg-8">
+                    <div className="col-lg-0">
                         <div className="card text-center bg-success m-1">
                             <div className="card-body">
                                 <h4 className="card-title text-white">Income</h4>
@@ -103,9 +103,13 @@ export default class Dashboard extends React.Component{
                                 <h6 className="text-success"> ⠀</h6>
                             </div>
                         </div>
+                        
                     </div>
+                    
                 </div>
+                
             </div>
+            
         )
     }
 }

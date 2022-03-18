@@ -190,7 +190,7 @@ class Member extends React.Component {
     if(this.state.role === 'admin' || this.state.role === 'kasir'){
       return(
         <button
-              className="btn btn-sm btn-success my-3"
+              className="btn btn-sm btn-info my-3"
               onClick={() => this.tambahData()}
             >
               Tambah data Member
@@ -296,7 +296,7 @@ class Member extends React.Component {
                       this.setState({ alamat: ev.target.value })
                     }
                   ></input>
-                  <button className="btn btn-success" type="submit">
+                  <button className="btn btn-info" type="submit">
                     Simpan
                   </button>
                 </form>

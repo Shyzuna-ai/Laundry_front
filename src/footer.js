@@ -11,8 +11,8 @@ import {
 export default function App() {
   return (
     <MDBFooter className='bg-dark text-center text-white sticky-md-top'>
-      <MDBContainer className='p-4 pb-0'>
-        <section className='mb-4'>
+      <MDBContainer className='p-5 pb-0'>
+        <section className='mb-4 pb-0'>
           <a className='btn btn-outline-info btn-floating m-1' href='https://www.facebook.com/eksadharma.prathama.5' role='button'>
             <MDBIcon fab icon="facebook" />
           </a>
