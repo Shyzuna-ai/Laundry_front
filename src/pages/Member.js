@@ -3,6 +3,15 @@ import { Modal } from "bootstrap";
 import axios from "axios";
 import {  authorization} from "../config";
 import'../Bg.css';
+import {
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBInput,
+    MDBBtn,
+    MDBCard,
+    MDBCardBody,
+  } from "mdb-react-ui-kit";
 
 class Member extends React.Component {
   constructor() {
@@ -189,22 +198,24 @@ class Member extends React.Component {
   showAddButton(){
     if(this.state.role === 'admin' || this.state.role === 'kasir'){
       return(
+      <div className="py-2 mt-1">
         <button
-              className="btn btn-sm btn-info my-3"
+              className="btn btn-sm btn-info text-center py-2 mt-1"
               onClick={() => this.tambahData()}
             >
               Tambah data Member
             </button>
+      </div>     
       )
     }
   }
   
   render() {
     return (
-      <div className="">
+      <div className="container">
         <div className="card">
           <div className="card-header bg-dark">
-            <h3 className="text-info">List Member Laundry</h3>
+            <h3 className="text-info text-center">List Member Laundry</h3>
           </div>
           <div className="card-body">
             <ul className="list-group">
@@ -255,20 +266,49 @@ class Member extends React.Component {
         <div className="modal" id="modal_member">
           <div className="modal-dialog modal-md">
             <div className="modal-content">
-              <div className="modal-header bg-dark">
-                <h4 className="text-info">Form data member</h4>
-              </div>
-              <div className="modal-body">
+             
+            
+              
+              <MDBCardBody className="modal-body">
                 <form onSubmit={(ev) => this.simpanData(ev)}>
-                  Nama
-                  <input
-                    type="text"
-                    className="form-control mb-2"
+                <p className="h4 text-center py-4">Form Data Member</p>
+                <div className="grey-text">
+                  <MDBInput
+                  label="Nama"
+                  className="form-control mb-2"
+                  group
+                  type="text"
+                  validate
                     value={this.state.nama}
                     onChange={(ev) => this.setState({ nama: ev.target.value })}
-                  ></input>
-                  Jenis Kelamin
+                  />
+                  
+                  <MDBInput
+                    label="Telepon"
+                    group
+                    type="text"
+                    className="form-control mb-2"
+                    value={this.state.telepon}
+                    onChange={(ev) =>
+                      this.setState({ telepon: ev.target.value })
+                    }
+                  />
+                  
+                  <MDBInput
+                  label="Alamat"
+                  group
+                    type="text"
+                    className="form-control mb-2"
+                    value={this.state.alamat}
+                    onChange={(ev) =>
+                      this.setState({ alamat: ev.target.value })
+                    }
+                  />
+
                   <select
+                  label="Jenis Kelamin"
+                  type="text"
+                  group
                     className="form-control mb-2"
                     value={this.state.jenis_kelamin}
                     onChange={(ev) =>
@@ -278,29 +318,14 @@ class Member extends React.Component {
                     <option value="Wanita">Wanita</option>
                     <option value="Pria">Pria</option>
                   </select>
-                  Telepon
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    value={this.state.telepon}
-                    onChange={(ev) =>
-                      this.setState({ telepon: ev.target.value })
-                    }
-                  ></input>
-                  Alamat
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    value={this.state.alamat}
-                    onChange={(ev) =>
-                      this.setState({ alamat: ev.target.value })
-                    }
-                  ></input>
-                  <button className="btn btn-info" type="submit">
-                    Simpan
-                  </button>
+                  </div>
+                  <div className="text-center py-4 mt-3">
+                  <MDBBtn color="info" type="submit">
+                    Tambah
+                  </MDBBtn>
+                </div>
                 </form>
-              </div>
+              </MDBCardBody>
             </div>
           </div>
         </div>
