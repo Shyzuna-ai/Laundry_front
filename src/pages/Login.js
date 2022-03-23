@@ -1,7 +1,10 @@
 import axios from "axios";
-import React from "react";
 import '../login.css';
-import IMAGE from'../carrot.jpeg';
+import React from "react";
+import IMAGE from'../carrot.jpg';
+import {
+    MDBInput
+  } from 'mdb-react-ui-kit';
 
 class Login extends React.Component{
     constructor(){
@@ -44,18 +47,23 @@ class Login extends React.Component{
                 <div className="box-1 mt-md-0 mt-5"><img src={IMAGE} className="" alt=""></img></div>
                 <div className=" box-2 d-flex flex-column h-100">
                     <div className="mt-5">
-                        <p className="mb-3 h-1">Login Account</p>
+                        <p className="mb-3 h-1 text-center">Login Account</p>
+                            
                         <div className="card-body">
                             <form onSubmit={ev => this.loginProcess(ev)}>
-                                Username
-                                <input type="text" className="form-control mb-2"
+                                
+                                <MDBInput type="text" className="form-control mb-2"
                                 required value={this.state.username}
-                                onChange={ev => this.setState({username: ev.target.value})}/>
+                                label="Username"
+                                onChange={ev => this.setState({username: ev.target.value})}
+                                />
 
-                                Password
-                                <input type="password" className="form-control mb-2"
+                                
+                                <MDBInput type="password" className="form-control mb-2"
                                 required value={this.state.password}
-                                onChange={ev => this.setState({password: ev.target.value})}/>
+                                label="Password"
+                                onChange={ev => this.setState({password: ev.target.value})}
+                                />
                                 
                                 <button type="submit" className="btn btn-primary mt-2">
                                     Log In   

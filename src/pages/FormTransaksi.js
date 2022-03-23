@@ -124,7 +124,7 @@ export default class FormTransaksi extends React.Component {
       <div className="container">
         <div className="card">
           <div className="card-header bg-primary">
-            <h4 className="text-white">Form Transaksi</h4>
+            <h4 className="text-white text-center">Form Transaksi</h4>
           </div>
           <div className="card-body">
             Member

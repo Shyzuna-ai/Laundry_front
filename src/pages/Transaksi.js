@@ -101,11 +101,11 @@ export default class Transaksi extends React.Component{
         if (dibayar == 0){
             return(
                 <div className="badge bg-danger text-white">
-                    belum dibayar
-                    <br></br>
+                    
+                    
 
                     <a onClick={() => this.changeStatusBayar(id_transaksi, 1)} className="text-white">
-                        klik untuk mengganti status bayar
+                    belum dibayar
                     </a>
                 </div>
             )
@@ -141,6 +141,19 @@ export default class Transaksi extends React.Component{
             .catch(error => console.log(error))
         }
     }
+
+    printStruk(id) {
+        var domToPdf = require('dom-to-pdf');
+
+        var element = document.getElementById('test');
+        var options = {
+            filename: 'test.pdf'
+        };
+        domToPdf(element, options, function(pdf) {
+        window.alert("Receipt Will Be Downloaded Soon")
+        });
+    }
+
     render(){
         const target = React.createRef()
         return(
@@ -211,7 +224,8 @@ export default class Transaksi extends React.Component{
                                             </small><br/>
                                             <h6>{this.convertStatus(trans.id_transaksi,trans.status)}</h6>
                                         </div>
-
+                                    
+                                        
                                         {/* this is status bayar area */}
                                         <div className="col-lg-3">
                                             <small className="text-info">

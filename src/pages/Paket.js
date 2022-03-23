@@ -212,6 +212,7 @@ class Paket extends React.Component {
                     type="text"
                     className="form-control mb-2"
                     value={this.state.jenis_paket}
+                    required
                     onChange={(ev) =>
                       this.setState({ jenis_paket: ev.target.value })
                     }
@@ -221,6 +222,7 @@ class Paket extends React.Component {
                     type="text"
                     className="form-control mb-2"
                     value={this.state.harga}
+                    required
                     onChange={(ev) => this.setState({ harga: ev.target.value })}
                   ></input>
                   <button className="btn btn-success" type="submit">

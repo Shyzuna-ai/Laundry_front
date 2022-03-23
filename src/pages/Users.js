@@ -235,7 +235,7 @@ class Users extends React.Component{
                                 <form onSubmit={(ev) => this.simpanData(ev)}>
                                     Nama
                                     <input type="text" className="form-control mb-2" value={this.state.nama}
-                                    onChange={(ev) => this.setState({nama: ev.target.value})}></input>
+                                    onChange={(ev) => this.setState({nama: ev.target.value})}required></input>
                                     Username
                                     <input type="text" className="form-control mb-2" value={this.state.username}
                                     onChange={(ev) => this.setState({username: ev.target.value})}></input>
