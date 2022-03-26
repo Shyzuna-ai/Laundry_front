@@ -2,6 +2,11 @@ import { Modal } from "bootstrap";
 import React from "react";
 import axios from "axios";
 import { authorization } from "../config";
+import {
+  MDBInput,
+  MDBBtn,
+  MDBCardBody,
+} from "mdb-react-ui-kit";
 
 class Paket extends React.Component {
   constructor() {
@@ -202,34 +207,38 @@ class Paket extends React.Component {
         <div className="modal" id="modal_paket">
           <div className="modal-dialog modal-md">
             <div className="modal-content">
-              <div className="modal-header bg-info">
-                <h4 className="text-white">Form data Paket</h4>
-              </div>
-              <div className="modal-body">
+              
+              <MDBCardBody className="modal-body">
                 <form onSubmit={(ev) => this.simpanData(ev)}>
-                  Jenis Paket
-                  <input
+                <p className="h4 text-center py-4">Form Data Paket</p>
+                  
+                  <MDBInput
                     type="text"
+                    label="Jenis Paket"
                     className="form-control mb-2"
                     value={this.state.jenis_paket}
                     required
                     onChange={(ev) =>
                       this.setState({ jenis_paket: ev.target.value })
                     }
-                  ></input>
-                  Harga
-                  <input
+                  />
+                  
+                  <MDBInput
                     type="text"
+                    label="Harga"
                     className="form-control mb-2"
                     value={this.state.harga}
                     required
                     onChange={(ev) => this.setState({ harga: ev.target.value })}
-                  ></input>
-                  <button className="btn btn-success" type="submit">
+                  />
+                  <div className="text-center py-4 mt-3">
+                  <MDBBtn
+                   color="info" type="submit">
                     Simpan
-                  </button>
+                  </MDBBtn>
+                  </div>
                 </form>
-              </div>
+              </MDBCardBody>
             </div>
           </div>
         </div>
