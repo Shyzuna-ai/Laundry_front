@@ -5,9 +5,9 @@ import { authorization } from "../config";
 import '../Bg.css';
 import {
   MDBInput,
-  MDBBtn,
   MDBCardBody,
 } from "mdb-react-ui-kit";
+
 
 class Member extends React.Component {
   constructor() {
@@ -83,7 +83,7 @@ class Member extends React.Component {
       // this.setState({members: temp})
 
       axios
-        .post(endpoint, data,authorization)
+        .post(endpoint, data, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -112,7 +112,7 @@ class Member extends React.Component {
       };
 
       axios
-        .put(endpoint, data,authorization)
+        .put(endpoint, data, authorization)
         .then((response) => {
           window.alert(response.data.message);
           this.getData();
@@ -196,8 +196,9 @@ class Member extends React.Component {
       return (
         <div className="py-2 mt-1">
           <button
-            className="btn btn-sm btn-info text-center py-2 mt-1"
+            className="btn btn-sm text-dark text-center py-2 mt-1"
             onClick={() => this.tambahData()}
+            style={{backgroundColor:'#ffb7c5',color:'562135'}}
           >
             Tambah data Member
           </button>
@@ -208,36 +209,44 @@ class Member extends React.Component {
 
   render() {
     return (
-      <div className="container">
+    
+      <div className="container-flex m-5">
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
         <div className="card">
-          <div className="card-header bg-dark">
-            <h3 className="text-info text-center">List Member Laundry</h3>
+            
+          <div className="card-header " style={{backgroundColor:'#ffb7c5'}}>
+            
+            <h3 className="text-white text-center">List Member Laundry</h3>
           </div>
           <div className="card-body">
             <ul className="list-group">
               {this.state.members.map((member) => (
-                <li className="list-group-item">
+                <li className="list-group-item "style={{color:'#562135'}}>
                   <div className="row">
-                    <div className="col-lg-2">
-                      <small className="text-info">NAMA</small>
+                    <div className="col-lg-2 ">
+                      <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>NAMA</small>
                       <br></br> <h6>{member.nama}</h6>
                     </div>
                     <div className="col-lg-2">
-                      <small className="text-info">JENIS KELAMIN</small>
+                      <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>JENIS KELAMIN</small>
                       <br></br> <h6>{member.jenis_kelamin}</h6>
                     </div>
                     <div className="col-lg-2">
-                      <small className="text-info">TELEPON</small>
+                      <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>TELEPON</small>
                       <br></br> <h6>{member.telepon}</h6>
                     </div>
                     <div className="col-lg-4">
-                      <small className="text-info">ALAMAT</small>
+                      <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>ALAMAT</small>
                       <br></br> <h6>{member.alamat}</h6>
                     </div>
                     <div className="col-lg-2">
                       <div>
                         <button
-                          className={`btn btn-sm btn-warning mx-2 ${this.state.visible ? `` : `d-none`}`}
+                          className={`btn btn-sm mx-2 ${this.state.visible ? `` : `d-none`}`}
+                          style={{backgroundColor:'#ffb7c5',color:'562135'}}
                           onClick={() => this.ubahData(member.id_member)}
                         >
                           Edit
@@ -257,14 +266,19 @@ class Member extends React.Component {
             {this.showAddButton()}
           </div>
         </div>
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
+        <br></br>
+        <br></br>
 
         {/* form modal data member */}
         <div className="modal" id="modal_member">
           <div className="modal-dialog modal-md">
             <div className="modal-content">
-
-
-
               <MDBCardBody className="modal-body">
                 <form onSubmit={(ev) => this.simpanData(ev)}>
                   <p className="h4 text-center py-4">Form Data Member</p>
@@ -319,9 +333,9 @@ class Member extends React.Component {
                     </select>
                   </div>
                   <div className="text-center py-4 mt-3">
-                    <MDBBtn color="info" type="submit">
+                    <button className="btn" type="submit" style={{backgroundColor:'#ffb7c5'}}>
                       Simpan
-                    </MDBBtn>
+                    </button>
                   </div>
                 </form>
               </MDBCardBody>

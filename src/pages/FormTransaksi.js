@@ -2,6 +2,12 @@ import React from "react";
 import axios from "axios";
 import { Modal } from "bootstrap";
 import { authorization } from "../config";
+import {
+  MDBInput,
+  MDBBtn,
+  MDBCardBody,
+  MDBContainer,
+} from "mdb-react-ui-kit";
 
 export default class FormTransaksi extends React.Component {
   constructor() {
@@ -19,9 +25,9 @@ export default class FormTransaksi extends React.Component {
       id_paket: "",
       qty: 0,
       jenis_paket: "",
-      harga:0
+      harga: 0
     };
-    if(!localStorage.getItem("token")){
+    if (!localStorage.getItem("token")) {
       window.location.href = "/login"
     }
   }
@@ -29,7 +35,7 @@ export default class FormTransaksi extends React.Component {
   getMember() {
     let endpoint = "http://localhost:8000/member";
     axios
-      .get(endpoint ,authorization)
+      .get(endpoint, authorization)
       .then((response) => {
         this.setState({ members: response.data });
       })
@@ -50,7 +56,7 @@ export default class FormTransaksi extends React.Component {
   getPaket() {
     let endpoint = "http://localhost:8000/paket";
     axios
-      .get(endpoint,authorization)
+      .get(endpoint, authorization)
       .then((response) => {
         this.setState({ pakets: response.data });
       })
@@ -58,11 +64,11 @@ export default class FormTransaksi extends React.Component {
   }
 
   tambahPaket(e) {
-      e.preventDefault()
+    e.preventDefault()
     //untuk menyimpan data paket yang dipilih beaserta jumlahnya didalam array detail transaksi
     let idPaket = this.state.id_paket
     let selectedPaket = this.state.pakets.find(
-        paket => paket.id_paket == idPaket
+      paket => paket.id_paket == idPaket
     )
     let newPaket = {
       id_paket: this.state.id_paket,
@@ -93,41 +99,46 @@ export default class FormTransaksi extends React.Component {
       let index = temp.findIndex(detail => detail.id_paket === id_paket)
 
       //menghapus data pada array
-      temp.splice(index,1)
+      temp.splice(index, 1)
 
-      this.setState({details: temp})
+      this.setState({ details: temp })
     }
   }
 
-  simpanTransaksi(){
+  simpanTransaksi() {
     let endpoint = "http://localhost:8000/transaksi"
     let user = JSON.parse(localStorage.getItem("user"))
-    let newData ={
-      id_member : this.state.id_member,
-      tgl : this.state.tgl,
+    let newData = {
+      id_member: this.state.id_member,
+      tgl: this.state.tgl,
       tgl_bayar: this.state.tgl_bayar,
-      batas_waktu : this.state.batas_waktu,
-      dibayar : this.state.dibayar,
-      id_user : user.id_user,
+      batas_waktu: this.state.batas_waktu,
+      dibayar: this.state.dibayar,
+      id_user: user.id_user,
       detail_transaksi: this.state.detail_transaksi,
     }
 
-    axios.post(endpoint,newData,authorization)
-    .then(response => {
-      window.alert(response.data.message)
-    })
-    .catch(error => console.log(error))
+    axios.post(endpoint, newData, authorization)
+      .then(response => {
+        window.alert(response.data.message)
+      })
+      .catch(error => console.log(error))
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="container-flex m-5">
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
         <div className="card">
-          <div className="card-header bg-primary">
+          
+          <div className="card-header " style={{backgroundColor:'#ffb7c5'}}>
             <h4 className="text-white text-center">Form Transaksi</h4>
           </div>
-          <div className="card-body">
-            Member
+          <div className="card-body ">
+          <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>Member</small>
             <select
               className="form-control mb-2"
               value={this.state.id_member}
@@ -137,28 +148,28 @@ export default class FormTransaksi extends React.Component {
                 <option value={member.id_member}>{member.nama}</option>
               ))}
             </select>
-            Tanggal Transaksi
+            <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>Tanggal Transaksi</small>
             <input
               type="date"
               className="form-control mb-2"
               value={this.state.tgl}
               onChange={(e) => this.setState({ tgl: e.target.value })}
             ></input>
-            Batas Waktu
+            <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>Batas Waktu</small>
             <input
               type="date"
               className="form-control mb-2"
               value={this.state.batas_waktu}
               onChange={(e) => this.setState({ batas_waktu: e.target.value })}
             ></input>
-            Tanggal bayar
+            <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>Tanggal bayar</small>
             <input
               type="date"
               className="form-control mb-2"
               value={this.state.tgl_bayar}
               onChange={(e) => this.setState({ tgl_bayar: e.target.value })}
             ></input>
-            Status bayar
+            <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>Status bayar</small>
             <select
               className="form-control mb-2"
               value={this.state.dibayar}
@@ -167,9 +178,11 @@ export default class FormTransaksi extends React.Component {
               <option value={true}>Sudah dibayar</option>
               <option value={false}>Belum dibayar</option>
             </select>
-            <button className="btn btn-success" onClick={() => this.addPaket()}>
+            <button className="btn btn-success" style={{backgroundColor:'#ffb7c5',color:'#562135'}} onClick={() => this.addPaket()}>
               Tambah Paket
             </button>
+            <br></br>
+            <br></br>
             {/*tampilkan isi detail*/}
             <h5 className="text-primary">Detail Transaksi</h5>
             {this.state.detail_transaksi.map((detail) => (
@@ -200,47 +213,56 @@ export default class FormTransaksi extends React.Component {
             <div className="modal" id="modal_paket">
               <div className="modal-dialog modal-md">
                 <div className="modal-content">
-                  <div className="modal-header bg-danger">
-                    <h4 className="text-white">Pilih Paket</h4>
-                  </div>
-                  <div className="modal-body">
+                  <MDBContainer className="modal-body">
+                    <p className="h4 text-center ">Form Data Member</p>
+                    <br />
                     <form onSubmit={(e) => this.tambahPaket(e)}>
-                      Pilih paket
-                      <select
-                        className="form-control mb-2"
-                        value={this.state.id_paket}
-                        onChange={(e) =>
-                          this.setState({ id_paket: e.target.value })
-                        }
-                      >
-                        <option value="">Pilih paket</option>
-                        {this.state.pakets.map((paket) => (
-                          <option value={paket.id_paket}>
-                            {paket.jenis_paket}
-                          </option>
-                        ))}
-                      </select>
-                      Jumlah (Qty)
-                      <input
-                        type="number"
-                        className="form-control mb-2"
-                        value={this.state.qty}
-                        onChange={(e) => this.setState({ qty: e.target.value })}
-                      ></input>
-                      <button type="submit" className="btn btn-success">
-                        Tambah
-                      </button>
+
+                      <div className="grey-text">
+                        Pilih paket
+                        <select
+                          className="form-control mb-2"
+                          value={this.state.id_paket}
+                          onChange={(e) =>
+                            this.setState({ id_paket: e.target.value })
+                          }
+                        >
+                          <option value="">Pilih paket</option>
+                          {this.state.pakets.map((paket) => (
+                            <option value={paket.id_paket}>
+                              {paket.jenis_paket}
+                            </option>
+                          ))}
+                        </select>
+                        Jumlah (Qty)
+                        <input
+                          type="number"
+                          className="form-control mb-2"
+                          value={this.state.qty}
+                          onChange={(e) => this.setState({ qty: e.target.value })}
+                        ></input>
+                      </div>
+                      <div className="text-center py-2 mt-3">
+                        <button className="btn" type="submit" style={{backgroundColor:'#ffb7c5'}}>
+                          Tambah
+                        </button>
+                      </div>
                     </form>
-                  </div>
+                  </MDBContainer>
                 </div>
               </div>
             </div>
-            <button type="submit" className="btn btn-sm btn-success" onClick={() => this.simpanTransaksi()}>
+            <button type="submit" className="btn btn-sm btn-success" style={{backgroundColor:'#ffb7c5',color:'#562135'}} onClick={() => this.simpanTransaksi()}>
               Simpan
             </button>
           </div>
         </div>
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
       </div>
+      
     );
   }
 }

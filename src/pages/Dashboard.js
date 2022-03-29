@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { formatNumber, authorization } from "../config";
-import PICTURE from '../sa.PNG';
+import PICTURE from '../123.png'
 
-export default class Dashboard extends React.Component {
-    constructor() {
+export default class Dashboard extends React.Component{
+    constructor(){
         super()
 
         this.state = {
@@ -13,110 +13,108 @@ export default class Dashboard extends React.Component {
             jumlahTransaksi: 0,
             income: 0
         }
-        if (!localStorage.getItem("token")) {
+        if(!localStorage.getItem("token")){
             window.location.href = "/login"
         }
     }
 
-    getSummary() {
+    getSummary(){
         let endpoint = `http://localhost:8000/member`
-        axios.get(endpoint, authorization)
-            .then(response => {
-                this.setState({ jumlahMember: response.data.length })
-            })
-            .catch(error => console.log(error))
+        axios.get(endpoint,authorization)
+        .then(response => {
+            this.setState({jumlahMember: response.data.length})
+        })
+        .catch(error => console.log(error))
 
         //paket
         endpoint = `http://localhost:8000/paket`
-        axios.get(endpoint, authorization)
-            .then(response => {
-                this.setState({ jumlahPaket: response.data.length })
-            })
-            .catch(error => console.log(error))
+        axios.get(endpoint,authorization)
+        .then(response => {
+            this.setState({jumlahPaket: response.data.length})
+        })
+        .catch(error => console.log(error))
 
         //transaksi
         endpoint = `http://localhost:8000/transaksi`
         axios.get(endpoint, authorization)
-            .then(response => {
-                let dataTransaksi = response.data
-                let income = 0
-                for (let i = 0; i < dataTransaksi.length; i++) {
-                    let total = 0;
-                    for (let j = 0; j < dataTransaksi[i].detail_transaksi.length; j++) {
-                        let harga = dataTransaksi[i].detail_transaksi[j].paket.harga
-                        let qty = dataTransaksi[i].detail_transaksi[j].qty
-
-                        total += (harga * qty)
-                    }
-
-                    income += total
+        .then(response => {
+            let dataTransaksi = response.data
+            let income = 0
+            for (let i = 0; i < dataTransaksi.length; i++) {
+                let total  = 0;
+                for (let j = 0; j < dataTransaksi[i].detail_transaksi.length; j++) {
+                    let harga = dataTransaksi[i].detail_transaksi[j].paket.harga
+                    let qty = dataTransaksi[i].detail_transaksi[j].qty
+                    
+                    total += (harga * qty)
                 }
-                this.setState({
-                    jumlahTransaksi: response.data.length,
-                    income: income
-                })
+
+                income += total
+            }
+            this.setState({
+                jumlahTransaksi: response.data.length,
+                income: income
             })
-            .catch(error => console.log(error))
+        })
+        .catch(error => console.log(error))
     }
 
-    componentDidMount() {
+    componentDidMount(){
         this.getSummary()
     }
-    render() {
-        return (
-            <div className="md bg-white">
+    render(){
+        return(
+            <div>
                 <div className="text-center">
-                <img src={PICTURE} className="img-fluid" alt="Responsive image" style={{ width:'1000px',height:'50%' }}></img>
+                <img src={PICTURE} className="img-fluid" alt="Responsive image" style={{ width:'100%',height:'50%' }}></img>
                 </div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-4 col-md-6">
-                            <div className="card text-center bg-primary m-1">
-                                <div className="card-body">
-                                    <h4 className="card-title text-white">Jumlah Member</h4>
-                                    <h2 className="text-white">{this.state.jumlahMember}</h2>
-                                    <h6 className="text-white">Member yang tergabung dalam laundry</h6>
-                                </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-4 col-md-6">
+                        <div className="card text-center bg-dark m-1">
+                            <div className="card-body">
+                                <h4 className="card-title text-white">Jumlah Member</h4>
+                                <h2 className="" style={{color: '#ffb7c5'}}>{this.state.jumlahMember}</h2>
+                                
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="card text-center bg-warning m-1">
-                                <div className="card-body">
-                                    <h4 className="card-title text-white">Jumlah Paket</h4>
-                                    <h2 className="text-white">{this.state.jumlahPaket}</h2>
-                                    <h6 className="text-white">Jenis yang tersedia</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="card text-center bg-info m-1">
-                                <div className="card-body">
-                                    <h4 className="card-title text-white">Jumlah Transaksi</h4>
-                                    <h2 className="text-white">{this.state.jumlahTransaksi}</h2>
-                                    <h6 className="text-white">Jumlah pencapaian transaksi</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <p></p>
-                        </div>
-                        <div className="col-lg-0">
-                            <div className="card text-center bg-success m-1">
-                                <div className="card-body">
-                                    <h4 className="card-title text-white">Income</h4>
-                                    <h2 className="text-white">Rp {formatNumber(this.state.income)}</h2>
-                                    <h6 className="text-success"> ⠀</h6>
-                                </div>
-                            </div>
-
-                        </div>
-
                     </div>
-
+                    <div className="col-lg-4 col-md-6">
+                        <div className="card text-center bg-dark m-1">
+                            <div className="card-body">
+                                <h4 className="card-title text-white" >Jumlah Paket</h4>
+                                <h2 className="" style={{color: '#ffb7c5'}}>{this.state.jumlahPaket}</h2>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-4 col-md-6">
+                        <div className="card text-center bg-dark m-1">
+                            <div className="card-body">
+                                <h4 className="card-title text-white">Jumlah Transaksi</h4>
+                                <h2 className="" style={{color: '#ffb7c5'}}>{this.state.jumlahTransaksi}</h2>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div className="col-lg-0 text-center">
+                        <div className="card text-center  m-1" style={{backgroundColor:'#ffb7c5'}}>
+                            <div className="card-body">
+                                
+                                <h4 className="card-title text-dark">Income</h4>
+                                <h2 className="text-dark">Rp {formatNumber(this.state.income)}</h2>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
-                <div>
-                    <h3 className="text-white">I like Women</h3>
-                </div>
+                
+            </div>
             </div>
         )
     }

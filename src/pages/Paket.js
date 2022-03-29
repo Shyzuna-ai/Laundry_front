@@ -4,7 +4,6 @@ import axios from "axios";
 import { authorization } from "../config";
 import {
   MDBInput,
-  MDBBtn,
   MDBCardBody,
 } from "mdb-react-ui-kit";
 
@@ -154,23 +153,29 @@ class Paket extends React.Component {
   }
   render() {
     return (
-      <div className="container">
+      <div className="container-flex m-5">
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
         <div className="card">
-          <div className="card-header bg-info">
+
+          <div className="card-header" style={{backgroundColor:'#ffb7c5'}}>
+
             <h3 className="text-white text-center">List Paket</h3>
           </div>
           <div className="card-body">
             <ul className="list-group">
               {this.state.pakets.map((paket) => (
-                <li className="list-group-item">
+                <li className="list-group-item" style={{color:'#562135'}}>
                   <div className="row">
                     <div className="col-lg-5">
-                      <small className="text-info">Jenis Paket</small>
+                      <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>Jenis Paket</small>
                       <br></br>
                       <h6>{paket.jenis_paket}</h6>
                     </div>
                     <div className="col-lg-5">
-                      <small className="text-info">Harga</small>
+                      <small className="text-white badge text-wrap" style={{backgroundColor:'#ffb7c5'}}>Harga</small>
                       <br></br>
                       <h6>Rp {paket.harga}</h6>
                     </div>
@@ -178,6 +183,7 @@ class Paket extends React.Component {
                       <div>
                         <button
                           className={`btn btn-sm btn-warning mx-2 ${this.state.visible ? `` : `d-none`}`}
+                          style={{backgroundColor:'#ffb7c5',color:'#562135'}}
                           onClick={() => this.ubahData(paket.id_paket)}
                         >
                           Edit
@@ -195,23 +201,28 @@ class Paket extends React.Component {
               ))}
             </ul>
             <button
-              className={`btn btn-sm btn-info my-3 text-white ${this.state.visible ? `` : `d-none`}`}
+              className={`btn btn-sm btn-info my-3 ${this.state.visible ? `` : `d-none`}`}
               onClick={() => this.tambahData()}
+              style={{backgroundColor:'#ffb7c5',color:'#562135'}}
             >
               Tambah data Paket
             </button>
           </div>
         </div>
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
+        <p></p>
+        <br></br>
 
         {/* form modal data paket */}
         <div className="modal" id="modal_paket">
           <div className="modal-dialog modal-md">
             <div className="modal-content">
-              
               <MDBCardBody className="modal-body">
                 <form onSubmit={(ev) => this.simpanData(ev)}>
                 <p className="h4 text-center py-4">Form Data Paket</p>
-                  
                   <MDBInput
                     type="text"
                     label="Jenis Paket"
@@ -221,7 +232,7 @@ class Paket extends React.Component {
                     onChange={(ev) =>
                       this.setState({ jenis_paket: ev.target.value })
                     }
-                  />
+                  ></MDBInput>
                   
                   <MDBInput
                     type="text"
@@ -230,12 +241,11 @@ class Paket extends React.Component {
                     value={this.state.harga}
                     required
                     onChange={(ev) => this.setState({ harga: ev.target.value })}
-                  />
+                  ></MDBInput>
                   <div className="text-center py-4 mt-3">
-                  <MDBBtn
-                   color="info" type="submit">
-                    Simpan
-                  </MDBBtn>
+                    <button className="btn" type="submit" style={{backgroundColor:'#ffb7c5'}}>
+                      Simpan
+                    </button>
                   </div>
                 </form>
               </MDBCardBody>

@@ -65,7 +65,7 @@ class Login extends React.Component{
                                 onChange={ev => this.setState({password: ev.target.value})}
                                 />
                                 
-                                <button type="submit" className="btn btn-primary mt-2">
+                                <button type="submit" className="btn button btn-primary mt-2">
                                     Log In   
                                 </button>
                             </form>        

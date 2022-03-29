@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import logo from './logo.png'
 
 function Logout() {
     localStorage.removeItem("user")
@@ -13,9 +13,10 @@ export default function Navbar(props) {
     
     <div>
       
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" >
         <div className="container-fluid">
-          <a href="#" className="navbar-brand text-info">
+          <a href="#" className="navbar-brand" style={{color: '#ffb7c5'}}>
+          <img src={logo} width="30" height="30" class="d-inline-block align-top" alt=""></img>
             Rycle's
           </a>
 
@@ -29,9 +30,9 @@ export default function Navbar(props) {
           </button>
 
           {/* define menu */}
-          <div className="collapse navbar-collapse" id="myNav">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+          <div className="collapse navbar-collapse" id="myNav" >
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0"  >
+              <li className="nav-item" >
                 <Link to="/" className="nav-link">
                   Dashboard
                 </Link>
@@ -63,7 +64,7 @@ export default function Navbar(props) {
               </li>
                 
               <li className="nav-item">
-                <Link to="/login" className="nav-link text-info" onClick={() => Logout()}>Logout</Link>
+                <Link to="/login" className="nav-link " style={{color: '#ffb7c5'}} onClick={() => Logout()}>Logout</Link>
               </li>
             </ul>
           </div>
